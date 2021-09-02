@@ -6,19 +6,20 @@ current_user.nameは、ログインしているユーザー名です。
 ユーザー名をクリックすると、usersコントローラーのeditアクションが実行され、編集ページに遷移できます。 %>
   </div>
   <div class="create-room">
-    <a href="#">チャットを作成する</a>
+    <%= link_to "チャットを作成する", new_room_path %>
   </div>
 </div>
 
 <div class="rooms">
-<div class="room">
-    <div class="room-name">
-      <a href="#">techroom1</a>
+<% current_user.rooms.each do |room| %>
+    <div class="room">
+      <div class="room-name">
+        <a href="#"><%= room.name %></a>
+      </div>
     </div>
-  </div>
-  <div class="room">
-    <div class="room-name">
-      <a href="#">techroom2</a>
-    </div>
-  </div>
+  <% end %>
+<%# チャットルームは複数作成出来るので、「eachメソッド」を使って全てのチャットルームに対して同じ処理を繰り返し実行します。
+今回でしたら、「チャットルーム名を表示する」という処理を繰り返し実行しています。
+2行目の 「|room|」の部分は変数名なので命名規則はないですが、今回は分かりやすいように「room」としています。
+また、5行目のroom.nameの「name」は、roomsテーブルのカラム名となります。 %>
 </div>
