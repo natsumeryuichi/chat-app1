@@ -14,7 +14,11 @@ current_user.nameは、ログインしているユーザー名です。
 <% current_user.rooms.each do |room| %>
     <div class="room">
       <div class="room-name">
-        <a href="#"><%= room.name %></a>
+        <%= link_to room.name, room_messages_path(room) %>
+<%# URIに注目すると、ネストによって、/rooms/:room_id/messagesとなっています。これはメッセージに紐付いているチャットルームのidという意味です。
+サイドバーのチャットルーム名に、上記の通りにリンクを設定します。
+パスにroomを引数とすることで、メッセージと紐付いているチャットルームのidを持たせることができます。
+したがって、チャットルーム名をクリックすると、messagesコントローラーのindexアクションが実行され、チャットルームのページに遷移できます。 %>
       </div>
     </div>
   <% end %>

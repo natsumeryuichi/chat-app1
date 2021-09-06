@@ -1,57 +1,37 @@
 <div class="chat-header">
 <div class="left-header">
     <div class="header-title">
-      hogefuga
+      <%= @room.name %>
     </div>
   </div>
   <div class="right-header">
     <div class="header-button">
-      <a href="#">チャットを終了する</a>
+      <%= link_to "チャットを終了する", room_path(@room), method: :delete %>
+<%# 「rails routes」コマンドを実行すると、roomsコントローラーのdestroyアクションに対応するPrefixは、roomということが分かります。
+したがって、削除のパスはroom_pathとなります。
+削除するチャットルームを区別するために、定義している@roomを引数にし、room_path(@room)と指定しましょう。
+HTTPメソッドのdeleteを指定すると、roomsコントローラーのdestroyアクションが実行されます。
+destroyアクションが実行されると、roomを削除することができます。
+最後に、roomを削除したときに、そのroomに関連する情報も削除されるように設定します。 %>
     </div>
   </div>
 </div>
 
 <div class="messages">
-<div class="message">
-    <div class="upper-message">
-      <div class="message-user">
-        Tom
-      </div>
-      <div class="message-date">
-        2020/3/31(Wed) 12:43:30
-      </div>
-    </div>
-    <div class="lower-message">
-      <div class="message-content">
-        おはよう
-      </div>
-    </div>
-  </div>
-
-  <div class="message">
-    <div class="upper-message">
-      <div class="message-user">
-        Tom
-      </div>
-      <div class="message-date">
-        2020/3/31(Wed) 12:47:30
-      </div>
-    </div>
-    <div class="lower-message">
-      <div class="message-content">
-        こんばんは
-      </div>
-    </div>
-  </div>
+  <%= render partial: 'message', collection: @messages %>
+<%# collectionオプションは、指定したインスタンス変数の中にある要素の数だけ、部分テンプレートが繰り返し表示されるオプションです。
+collectionオプションを使えば、インスタンスに入っている要素が複数あった場合でも、eachメソッドを使用せずにrenderで繰り返し表示できます。
+今回の場合だと、@messagesを繰り返しの対象として指定することによって、@messagesの中にある複数の要素の数だけ、部分テンプレートを繰り返し呼び出します。
+また、呼び出した部分テンプレート内において、要素は部分テンプレート名と同じ変数名を用いて扱うことができます。 %>
 </div>
 
-<div class="form">
-<div class="form-input">
-    <input class="form-message" placeholder= "type a message">
+<%= form_with model: [@room, @message], class: 'form', local: true do |f| %>
+  <div class="form-input">
+    <%= f.text_field :content, class: 'form-message', placeholder: 'type a message' %>
     <label class="form-image">
       <span class="image-file">画像</span>
-      <input type="file" class="hidden">
+      <%= f.file_field :image, class: 'hidden' %>
     </label>
   </div>
-  <input class="form-submit" type="submit" value="送信">
-</div>
+  <%= f.submit '送信', class: 'form-submit' %>
+<% end %>
