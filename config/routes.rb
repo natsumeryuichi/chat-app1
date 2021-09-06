@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   devise_for :users
-  get 'rooms/index'
   root to: "rooms#index"
   resources :users, only: [:edit, :update]
 # ユーザー編集に必要なルーティングは、editとupdateなので、routes.rbに、 resources :users, only: [:edit, :update]と追記します。
