@@ -7,9 +7,12 @@
     </div>
     <div class="message-date">
       <!-- 投稿した時刻を出力する -->
-      <%= message.created_at %>
+      <%= l message.created_at %>
       <%# messagesテーブルのcreated_atカラムから、投稿した時刻を取得しています。
       ただし、現段階では日本基準の時刻ではありません。  %>
+
+      <%# l（エル）メソッドは、日付や時刻を表示するRailsのメソッドです。
+      国や地域によって時刻は異なりますが、lメソッドを使えば指定した現地時間に対応できます。 %>
     </div>
   </div>
   <div class="lower-message">

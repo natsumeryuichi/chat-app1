@@ -10,6 +10,10 @@ module ChatApp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
+    config.i18n.default_locale = :ja
+    config.time_zone = 'Tokyo'
+# 上記の設定後、ユーザー登録・ログインに失敗した際のエラーメッセージが以下のような表示となりますが、カリキュラム上の仕様として問題ありません。
+# config.i18n.default_locale = :jaの記述により、アプリのデフォルトの言語設定が日本語となり、deviseのエラーメッセージも日本語化するよう求められるためです。
     config.generators do |g|
       g.stylesheets false
       g.javascripts false
