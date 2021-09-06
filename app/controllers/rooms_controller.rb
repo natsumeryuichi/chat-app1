@@ -19,6 +19,12 @@ class RoomsController < ApplicationController
 # Railsではセキュリティ対策として、保存する前にストロングパラメーターを使い、許可するパラメーターを指定してから、データを保存するよう推奨されています。
 # 今回は、バリューが配列で送られてきているため、配列の保存を許可するためのストロングパラメーターが必要になります。
 
+def destroy
+  room = Room.find(params[:id])
+  room.destroy
+  redirect_to root_path
+end
+
   private
   def room_params
     params.require(:room).permit(:name, user_ids: [])
